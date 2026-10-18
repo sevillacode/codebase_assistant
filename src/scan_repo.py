@@ -1,4 +1,5 @@
 import os 
+import argparse
 from pathlib import Path
 
 def take_files(root_path_, target_extensions_, excluded_files_, excluded_dirs_):
@@ -26,17 +27,20 @@ def take_files(root_path_, target_extensions_, excluded_files_, excluded_dirs_):
 def main():
 
     # input de directorio a analizar
-    target_input = input("Introduce ruta para procesar archivos\n").strip()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-p", "--path")
+    args = parser.parse_args()
+    target_path = args.path
 
     # definición de listas y diccionarios
     target_extensions = [".php", ".py", ".js", ".md"]
-    excluded_dirs = [".git", ".venv", "node_modules", "vendor"]
+    excluded_dirs = [".git", ".venv", "node_modules", "vendor", ".pytest_cache"]
     excluded_files = [".gitignore", ".env"]
     counter = {}
 
     # flujo principal
-    if target_input and Path(target_input).is_dir():
-        target_files = take_files(target_input, target_extensions, excluded_files, excluded_dirs)
+    if target_path and Path(target_path).is_dir():
+        target_files = take_files(target_path, target_extensions, excluded_files, excluded_dirs)
         for file in target_files:
             print(f"Archivo: {file}")
             print(f"Tamaño: {file.stat().st_size} bytes\n")
@@ -47,7 +51,7 @@ def main():
         for extension,count in counter.items():
             print(f"{extension}: {count}")
     else:
-        print(f"La ruta facilitada \"{target_input}\" no es correcta")
+        print(f"La ruta facilitada \"{target_path}\" no es correcta")
 
 
 if __name__ == "__main__":
