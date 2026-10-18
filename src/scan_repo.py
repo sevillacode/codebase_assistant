@@ -28,9 +28,9 @@ def main():
 
     # input de directorio a analizar
     parser = argparse.ArgumentParser()
-    parser.add_argument("-p", "--path")
+    parser.add_argument("directory", help="Ruta del directorio que se analizará")
     args = parser.parse_args()
-    target_path = args.path
+    target_path = args.directory
 
     # definición de listas y diccionarios
     target_extensions = [".php", ".py", ".js", ".md"]
