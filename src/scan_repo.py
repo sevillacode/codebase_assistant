@@ -26,7 +26,7 @@ def take_files(root_path_, target_extensions_, excluded_files_, excluded_dirs_):
 def main():
 
     # input de directorio a analizar
-    target_input = input("Introduce ruta para procesar archivos").strip()
+    target_input = input("Introduce ruta para procesar archivos\n").strip()
 
     # definición de listas y diccionarios
     target_extensions = [".php", ".py", ".js", ".md"]
@@ -40,12 +40,12 @@ def main():
         for file in target_files:
             print(f"Archivo: {file}")
             print(f"Tamaño: {file.stat().st_size} bytes\n")
-            ex = file.suffix.lower()
-            counter[ex] = counter.get(ex, 0) + 1
+            ext = file.suffix.lower()
+            counter[ext] = counter.get(ext, 0) + 1
 
         print(f"Total de archivos: {len(target_files)}")
-        for k,v in counter.items():
-            print(f"{k}: {v}")
+        for extension,count in counter.items():
+            print(f"{extension}: {count}")
     else:
         print(f"La ruta facilitada \"{target_input}\" no es correcta")
 
